@@ -59,40 +59,48 @@ products.forEach((product)=>
 console.log(productsHtml);
 document.querySelector('.js-products-grid').
 innerHTML= productsHtml;
-document.querySelectorAll('.js-add-to-cart')
-.forEach((button)=>
-{
-  button.addEventListener('click',()=>
-  {
-    const productId= button.dataset.productId;
-
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+  button.addEventListener('click', () => {
+    const productId = button.dataset.productId;
     let matchingItem;
-    cart.forEach((item)=>
-    {
-      if (productId===item.productId) {
-        matchingItem=item;
+    cart.forEach((item) => {
+      if (productId === item.productId) {
+        matchingItem = item;
       }
-    })
-
+    });
     if (matchingItem) {
       matchingItem.quantity++;
-    }
-    else
-    {
-        cart.push({
+    } else {
+      cart.push({
         productId: productId,
         quantity: 1
-    })
+      });
     }
-
     let cartQuantity = 0;
-    cart.forEach((item)=>
-    {
-      cartQuantity +=item.quantity;
-    })
-
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+    });
     document.querySelector('.js-cart-quantity')
-      .innerHTML= cartQuantity;
-  })
+    .innerHTML = cartQuantity;
 
-})
+    let existingMessage = button.parentNode.querySelector('.added-to-cart');
+    if (existingMessage) {
+      if (existingMessage.timeoutId) {
+        clearTimeout(existingMessage.timeoutId);
+      }
+      existingMessage.style.opacity = '1';
+      existingMessage.timeoutId = setTimeout(() => {
+        existingMessage.style.opacity = '0';
+      }, 2000);
+    } else {
+      const message = document.createElement('div');
+      message.className = 'added-to-cart';
+      message.innerHTML = '<img src="tick.png" alt="tick"> Added to Cart';
+      button.parentNode.insertBefore(message, button);
+      message.style.opacity = '1';
+      message.timeoutId = setTimeout(() => {
+        message.style.opacity = '0';
+      }, 2000);
+    }
+  });
+});
