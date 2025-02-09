@@ -76,7 +76,7 @@ uniqueCartItems.forEach((cartItem) => {
             <div>
               <div class="delivery-option-date">
                 Monday, June 13
-              </div>
+              </div>b
               <div class="delivery-option-price">
                 $9.99 - Shipping
               </div>
