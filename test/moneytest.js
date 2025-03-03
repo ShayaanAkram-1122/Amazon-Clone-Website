@@ -1,6 +1,6 @@
 import { formatCurrency }from "../scripts/utils/money.js";
 
-console.log('TEST SUITE');
+console.log('Test Suite: Frequency');
 if (formatCurrency(2095) === '20.95') {
     console.log('passed');
 }
