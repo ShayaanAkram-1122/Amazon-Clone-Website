@@ -1,0 +1,106 @@
+body {
+  background: #f6f7f8;
+  margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 40px 0 40px;
+  background: #000;
+}
+.home-logo {
+  color: white;
+  height: 40px;
+}
+
+.home-nav {
+  color: white;
+  display: flex;
+  gap: 32px;
+}
+.home-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.home-link:hover {
+  color: #ffd814;
+}
+.home-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px 0 20px;
+}
+.home-hero {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fade-in 1s;
+}
+.home-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #232f3e;
+}
+.home-subtitle {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 28px;
+}
+.home-cta {
+  display: inline-block;
+  background: #ffd814;
+  color: #232f3e;
+  font-weight: 700;
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(213,217,217,0.15);
+  transition: background 0.2s, color 0.2s;
+}
+.home-cta:hover {
+  background: #f7ca00;
+  color: #111;
+}
+.home-features {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 32px;
+}
+.feature-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  padding: 32px 24px;
+  text-align: center;
+  width: 240px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fade-in 0.8s forwards;
+}
+.feature-icon {
+  height: 40px;
+  margin-bottom: 16px;
+}
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fade-in {
+  animation-name: fade-in;
+}
+.home-footer {
+  text-align: center;
+  color: #888;
+  font-size: 1rem;
+  margin-top: 60px;
+  padding-bottom: 24px;
+} 

@@ -15,176 +15,63 @@
 
     <!-- Here are the CSS files for this page. -->
     <link rel="stylesheet" href="styles/shared/general.css">
-    <link rel="stylesheet" href="styles/shared/amazon-header.css">
-    <link rel="stylesheet" href="styles/pages/orders.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
   </head>
-  <body>
-    <div class="amazon-header">
-      <div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
-          <img class="amazon-logo"
-            src="images/amazon-logo-white.png">
-          <img class="amazon-mobile-logo"
-            src="images/amazon-mobile-logo-white.png">
-        </a>
-      </div>
-
-      <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
-
-        <button class="search-button">
-          <img class="search-icon" src="images/icons/search-icon.png">
-        </button>
-      </div>
-
-      <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="orders.html">
-          <span class="returns-text">Returns</span>
-          <span class="orders-text">& Orders</span>
-        </a>
-
-        <a class="cart-link header-link" href="checkout.html">
-          <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity">3</div>
-          <div class="cart-text">Cart</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="main">
-      <div class="page-title">Your Orders</div>
-
-      <div class="orders-grid">
-        <div class="order-container">
-          
-          <div class="order-header">
-            <div class="order-header-left-section">
-              <div class="order-date">
-                <div class="order-header-label">Order Placed:</div>
-                <div>August 12</div>
-              </div>
-              <div class="order-total">
-                <div class="order-header-label">Total:</div>
-                <div>$35.06</div>
-              </div>
-            </div>
-
-            <div class="order-header-right-section">
-              <div class="order-header-label">Order ID:</div>
-              <div>27cba69d-4c3d-4098-b42d-ac7fa62b7664</div>
-            </div>
-          </div>
-
-          <div class="order-details-grid">
-            <div class="product-image-container">
-              <img src="images/products/athletic-cotton-socks-6-pairs.jpg">
-            </div>
-
-            <div class="product-details">
-              <div class="product-name">
-                Black and Gray Athletic Cotton Socks - 6 Pairs
-              </div>
-              <div class="product-delivery-date">
-                Arriving on: August 15
-              </div>
-              <div class="product-quantity">
-                Quantity: 1
-              </div>
-              <button class="buy-again-button button-primary">
-                <img class="buy-again-icon" src="images/icons/buy-again.png">
-                <span class="buy-again-message">Buy it again</span>
-              </button>
-            </div>
-
-            <div class="product-actions">
-              <a href="tracking.html">
-                <button class="track-package-button button-secondary">
-                  Track package
-                </button>
-              </a>
-            </div>
-
-            <div class="product-image-container">
-              <img src="images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg">
-            </div>
-
-            <div class="product-details">
-              <div class="product-name">
-                Adults Plain Cotton T-Shirt - 2 Pack
-              </div>
-              <div class="product-delivery-date">
-                Arriving on: August 19
-              </div>
-              <div class="product-quantity">
-                Quantity: 2
-              </div>
-              <button class="buy-again-button button-primary">
-                <img class="buy-again-icon" src="images/icons/buy-again.png">
-                <span class="buy-again-message">Buy it again</span>
-              </button>
-            </div>
-
-            <div class="product-actions">
-              <a href="tracking.html">
-                <button class="track-package-button button-secondary">
-                  Track package
-                </button>
-              </a>
-            </div>
-          </div>
+  <body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen transition-colors duration-300">
+    <script>
+      if (!localStorage.getItem('user')) {
+        window.location.href = 'sign.html';
+      }
+    </script>
+    <div class="checkout-header sticky top-0 z-50 shadow bg-white flex items-center px-4 py-2 animate__animated animate__fadeInDown">
+      <div class="header-content w-full max-w-6xl mx-auto flex items-center justify-between">
+        <div class="checkout-header-left-section flex items-center">
+          <a href="amazon.html">
+            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+          </a>
         </div>
-
-        <div class="order-container">
-
-          <div class="order-header">
-            <div class="order-header-left-section">
-              <div class="order-date">
-                <div class="order-header-label">Order Placed:</div>
-                <div>June 10</div>
-              </div>
-              <div class="order-total">
-                <div class="order-header-label">Total:</div>
-                <div>$41.90</div>
-              </div>
-            </div>
-
-            <div class="order-header-right-section">
-              <div class="order-header-label">Order ID:</div>
-              <div>b6b6c212-d30e-4d4a-805d-90b52ce6b37d</div>
-            </div>
-          </div>
-
-          <div class="order-details-grid">
-            <div class="product-image-container">
-              <img src="images/products/intermediate-composite-basketball.jpg">
-            </div>
-
-            <div class="product-details">
-              <div class="product-name">
-                Intermediate Size Basketball
-              </div>
-              <div class="product-delivery-date">
-                Arriving on: June 17
-              </div>
-              <div class="product-quantity">
-                Quantity: 2
-              </div>
-              <button class="buy-again-button button-primary">
-                <img class="buy-again-icon" src="images/icons/buy-again.png">
-                <span class="buy-again-message">Buy it again</span>
-              </button>
-            </div>
-
-            <div class="product-actions">
-              <a href="tracking.html">
-                <button class="track-package-button button-secondary">
-                  Track package
-                </button>
-              </a>
-            </div>
-          </div>
+        <div class="checkout-header-middle-section text-xl font-bold text-gray-800">
+          Your Orders
+        </div>
+        <div class="checkout-header-right-section flex items-center">
+          <a href="returns.html" class="text-blue-600 hover:underline mr-4 text-sm flex items-center">
+            <img src="images/icons/returns.png" alt="Returns" class="w-5 h-5 mr-1">
+            Returns
+          </a>
+          <img src="images/icons/checkout-lock-icon.png" class="h-8">
         </div>
       </div>
     </div>
+    <main class="main w-full max-w-6xl mx-auto mt-24 flex flex-col md:flex-row gap-8 animate__animated animate__fadeInUp">
+      <section class="flex-1 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInLeft">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-blue-600">receipt</span> Order History
+        </h2>
+        <div class="js-orders-grid space-y-8"></div>
+      </section>
+      <aside class="w-full md:w-96 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInRight flex flex-col gap-6">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-green-600">local_shipping</span> Order Summary
+        </h2>
+        <div class="order-summary">
+          <div class="order-summary-row flex justify-between mb-2"><span>Total Orders:</span><span class="js-total-orders">0</span></div>
+          <div class="order-summary-row flex justify-between mb-2"><span>Items Shipped:</span><span class="js-items-shipped">0</span></div>
+          <div class="order-summary-row flex justify-between mb-2"><span>In Transit:</span><span class="js-in-transit">0</span></div>
+          <div class="order-summary-row flex justify-between mb-2"><span>Delivered:</span><span class="js-delivered">0</span></div>
+        </div>
+        <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+          <h3 class="font-semibold text-blue-800 mb-2">Need Help?</h3>
+          <p class="text-sm text-blue-700 mb-3">Track your packages or contact customer service for assistance.</p>
+          <a href="help.html" class="text-blue-600 hover:underline text-sm">Contact Support</a>
+        </div>
+      </aside>
+    </main>
+    <script type="module" src="scripts/orders.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="scripts/global.js"></script>
   </body>
 </html>

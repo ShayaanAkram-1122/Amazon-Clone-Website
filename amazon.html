@@ -17,47 +17,263 @@
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
     <link rel="stylesheet" href="styles/pages/amazon.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+      /* Custom styles for theme toggle and back to top button */
+      #back-to-top {
+        transition: all 0.3s ease;
+      }
+      
+      #back-to-top:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+      
+      /* Dark theme styles */
+      .dark-theme .product-container {
+        background-color: #1f2937;
+        color: white;
+      }
+      
+      .dark-theme .product-name {
+        color: white;
+      }
+      
+      /* Smooth transitions for theme changes */
+      .product-container,
+      .product-name,
+      select {
+        transition: all 0.3s ease;
+      }
+      
+      /* Enhanced search bar and sort dropdown styles */
+      .search-bar {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+      
+      .search-bar:focus {
+        outline: none;
+        border-color: #fbbf24;
+        box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+        transform: translateY(-1px);
+      }
+      
+      .sort-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        appearance: none;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+      
+      .sort-select:focus {
+        outline: none;
+        border-color: #fbbf24;
+        box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+        transform: translateY(-1px);
+      }
+      
+      .sort-select option {
+        background-color: white;
+        color: black;
+        padding: 8px;
+      }
+      
+      .search-button {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+      
+      .search-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+      }
+      
+      .search-button:active {
+        transform: translateY(0);
+      }
+      
+      /* Dark theme specific styles */
+      .dark-theme .sort-select option {
+        background-color: #374151;
+        color: white;
+      }
+      
+      /* Search suggestions styles */
+      .search-suggestions {
+        background-color: white;
+        color: black;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+      
+      .suggestion-item {
+        transition: all 0.15s ease;
+      }
+      
+      .suggestion-item:hover {
+        transform: translateX(4px);
+      }
+      
+      /* Responsive search bar */
+      @media (max-width: 768px) {
+        .amazon-header-middle-section {
+          flex-direction: column;
+          gap: 8px;
+        }
+        
+        .amazon-header-middle-section > div {
+          width: 100%;
+        }
+        
+        .sort-select {
+          order: -1;
+          margin-bottom: 4px;
+        }
+        
+        .search-suggestions {
+          position: fixed;
+          top: 60px;
+          left: 10px;
+          right: 10px;
+          max-height: 200px;
+        }
+      }
+
+      /* Product card improvements for better text display */
+      .product-container {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-name {
+        flex: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 8px 4px;
+        min-height: 4.5em; /* Ensure consistent height for product names */
+      }
+
+      .product-image-container {
+        flex-shrink: 0;
+      }
+
+      .product-spacer {
+        flex: 1;
+        min-height: 20px;
+      }
+
+      /* Ensure consistent card heights */
+      .js-products-grid > div {
+        height: fit-content;
+        min-height: 450px;
+      }
+    </style>
   </head>
-  <body>
-    <div class="amazon-header">
-      <div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
-          <img class="amazon-logo"
-            src="images/amazon-logo-white.png">
-          <img class="amazon-mobile-logo"
-            src="images/amazon-mobile-logo-white.png">
+  <body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen transition-colors duration-300" id="body-root">
+    <script>
+      if (!localStorage.getItem('user')) {
+        window.location.href = 'sign.html';
+      }
+    </script>
+    <div class="amazon-header sticky top-0 z-50 shadow bg-[#232f3e] flex items-center px-2 py-1">
+      <div class="amazon-header-left-section flex items-center">
+        <a href="amazon.html" class="header-link flex items-center">
+          <img class="amazon-logo w-24 h-8" src="images/amazon-logo-white.png">
         </a>
       </div>
-
-      <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
-
-        <button class="search-button">
-          <img class="search-icon" src="images/icons/search-icon.png">
-        </button>
+      <div class="amazon-header-middle-section flex-1 flex items-center justify-center">
+        <div class="relative w-full max-w-3xl flex items-center space-x-2">
+          <input class="search-bar flex-1 px-3 py-2 text-sm rounded-l border-none focus:ring-2 focus:ring-yellow-400 transition placeholder-black text-black" type="text" placeholder="Search products..." id="search-input">
+          <select class="sort-select px-3 py-2 text-sm bg-white border-none focus:ring-2 focus:ring-yellow-400 transition text-black cursor-pointer" id="sort-select">
+            <option value="">Sort by</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating-high">Rating: High to Low</option>
+            <option value="rating-low">Rating: Low to High</option>
+            <option value="name-az">Name: A to Z</option>
+            <option value="name-za">Name: Z to A</option>
+          </select>
+          <button class="search-button bg-yellow-400 px-4 py-2 rounded-r hover:bg-yellow-500 transition text-black font-bold" id="search-btn">Go</button>
+        </div>
       </div>
-
-      <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="orders.html">
-          <span class="returns-text">Returns</span>
-          <span class="orders-text">& Orders</span>
-        </a>
-
-        <a class="cart-link header-link" href="checkout.html">
-          <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity js-cart-quantity"></div>
-          <div class="cart-text">Cart</div>
+      <div class="amazon-header-right-section flex items-center space-x-4 ml-4 text-[13px] font-medium">
+        <a href="returns.html" class="text-white hover:underline">Returns</a>
+        <span class="text-gray-400">|</span>
+        <div class="relative group" id="account-group">
+          <button class="text-white hover:underline focus:outline-none flex items-center space-x-1" id="account-btn" type="button">
+            <span class="material-icons text-base align-middle">account_circle</span>
+            <span>Your Account</span>
+          </button>
+          <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl p-4 hidden z-50 animate__animated animate__fadeInDown text-sm min-w-[160px]" id="account-dropdown">
+            <div class="flex items-center mb-3">
+              <span class="material-icons text-blue-600 mr-2">account_circle</span>
+              <span class="font-semibold js-profile-name text-black">User</span>
+            </div>
+            <a href="profile.html" class="block py-1 px-2 rounded hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition">Profile</a>
+            <a href="settings.html" class="block py-1 px-2 rounded hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition">Settings</a>
+            <button id="theme-toggle" class="w-full text-left py-1 px-2 rounded hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition flex items-center">
+              <span class="material-icons text-sm mr-2" id="theme-icon">dark_mode</span>
+              <span>Toggle Theme</span>
+            </button>
+            <a href="#" class="block py-1 px-2 rounded hover:bg-red-50 text-red-600 hover:text-red-800 transition" id="logout">Logout</a>
+          </div>
+        </div>
+        <span class="text-gray-400">|</span>
+        <a href="help.html" class="text-white hover:underline">Help</a>
+        <span class="text-gray-400">|</span>
+        <a class="cart-link header-link flex items-center text-white hover:underline relative" href="checkout.html">
+          <span class="font-bold text-lg">Cart</span>
+          <span class="js-cart-quantity absolute -right-2 -top-3 bg-red-600 text-white rounded-full px-2 py-0.5 text-xs font-bold shadow border-2 border-white transition-all duration-200"></span>
         </a>
       </div>
     </div>
     
     <div class="main">
-      <div class="products-grid js-products-grid">
+      <div class="products-grid js-products-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-6 animate__animated animate__fadeInUp">
       </div>
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 opacity-0 invisible z-40 animate__animated">
+      <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+
     
+    <script src="scripts/utils/settings.js"></script>
     <script type="module"  src="scripts/amazon.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script>
+      const accountBtn = document.getElementById('account-btn');
+      const accountDropdown = document.getElementById('account-dropdown');
+      const accountGroup = document.getElementById('account-group');
+      if (accountBtn && accountDropdown) {
+        accountBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          accountDropdown.classList.toggle('hidden');
+        });
+        document.body.addEventListener('click', function(e) {
+          if (!accountGroup.contains(e.target)) {
+            accountDropdown.classList.add('hidden');
+          }
+        });
+      }
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (user && user.name) {
+        document.querySelectorAll('.js-profile-name').forEach(el => el.textContent = user.name);
+      }
+      document.getElementById('logout')?.addEventListener('click', function() {
+        localStorage.removeItem('user');
+        window.location.href = 'sign.html';
+      });
+    </script>
   </body>
 </html>
 

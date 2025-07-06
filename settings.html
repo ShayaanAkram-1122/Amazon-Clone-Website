@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .amazon-gradient { background: linear-gradient(135deg, #ff9900 0%, #ff6b35 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.95); }
+        .shadow-glow { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+        .input-focus:focus { box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2); }
+        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 153, 0, 0.3); }
+        .toggle-switch { transition: all 0.3s ease; }
+        .toggle-switch:checked { background-color: #ff9900; }
+        
+
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="images/amazon-logo.png" alt="Amazon" class="h-8 w-auto">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="amazon.html" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <span class="material-icons">home</span>
+                    </a>
+                    <a href="profile.html" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <span class="material-icons">person</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
+            <p class="text-gray-600">Manage your account preferences and settings</p>
+        </div>
+
+        <!-- Settings Navigation -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <nav class="bg-white rounded-lg shadow-sm p-4 sticky top-8">
+                    <ul class="space-y-2">
+                        <li>
+                            <button onclick="showSection('account')" class="settings-nav-btn w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 active" data-section="account">
+                                <span class="material-icons text-lg mr-2">person</span>
+                                Account
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="showSection('notifications')" class="settings-nav-btn w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-section="notifications">
+                                <span class="material-icons text-lg mr-2">notifications</span>
+                                Notifications
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="showSection('privacy')" class="settings-nav-btn w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-section="privacy">
+                                <span class="material-icons text-lg mr-2">security</span>
+                                Privacy & Security
+                            </button>
+                        </li>
+
+                        <li>
+                            <button onclick="showSection('shipping')" class="settings-nav-btn w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-section="shipping">
+                                <span class="material-icons text-lg mr-2">local_shipping</span>
+                                Shipping & Delivery
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="showSection('payment')" class="settings-nav-btn w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" data-section="payment">
+                                <span class="material-icons text-lg mr-2">payment</span>
+                                Payment Methods
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="lg:col-span-3">
+                <!-- Account Settings -->
+                <div id="account" class="settings-section bg-white rounded-lg shadow-sm p-6 animate__animated animate__fadeIn">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Account Settings</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Profile Information -->
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Profile Information</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                    <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter your full name">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter your email">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter your phone number">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                                    <input type="date" id="dob" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Information -->
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Address Information</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
+                                    <input type="text" id="streetAddress" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter your street address">
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                                        <input type="text" id="city" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="City">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                                        <input type="text" id="state" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="State">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                                        <input type="text" id="zipCode" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="ZIP Code">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="flex justify-end">
+                            <button onclick="saveAccountSettings()" class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 btn-hover">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div id="notifications" class="settings-section bg-white rounded-lg shadow-sm p-6 animate__animated animate__fadeIn" style="display: none;">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Notification Settings</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Order Updates</h3>
+                                    <p class="text-sm text-gray-600">Get notified about order status changes</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="orderUpdates" class="sr-only toggle-switch" checked>
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Promotional Emails</h3>
+                                    <p class="text-sm text-gray-600">Receive deals and promotional offers</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="promotionalEmails" class="sr-only toggle-switch">
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Price Drop Alerts</h3>
+                                    <p class="text-sm text-gray-600">Get notified when items in your wishlist drop in price</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="priceDropAlerts" class="sr-only toggle-switch" checked>
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">New Product Recommendations</h3>
+                                    <p class="text-sm text-gray-600">Receive personalized product recommendations</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="productRecommendations" class="sr-only toggle-switch">
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button onclick="saveNotificationSettings()" class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 btn-hover">
+                                Save Preferences
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy & Security Settings -->
+                <div id="privacy" class="settings-section bg-white rounded-lg shadow-sm p-6 animate__animated animate__fadeIn" style="display: none;">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Privacy & Security</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Password Change -->
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Change Password</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                                    <input type="password" id="currentPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter current password">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                                    <input type="password" id="newPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter new password">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Confirm new password">
+                                </div>
+                                <button onclick="changePassword()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 btn-hover">
+                                    Update Password
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Privacy Options -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Two-Factor Authentication</h3>
+                                    <p class="text-sm text-gray-600">Add an extra layer of security to your account</p>
+                                </div>
+                                <button onclick="setupTwoFactor()" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors duration-200">
+                                    Setup
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Data Sharing</h3>
+                                    <p class="text-sm text-gray-600">Control how your data is used for personalization</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="dataSharing" class="sr-only toggle-switch" checked>
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Shipping & Delivery Settings -->
+                <div id="shipping" class="settings-section bg-white rounded-lg shadow-sm p-6 animate__animated animate__fadeIn" style="display: none;">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Shipping & Delivery</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Default Shipping Address -->
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Default Shipping Address</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Address Label</label>
+                                    <input type="text" id="addressLabel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="e.g., Home, Office">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
+                                    <input type="text" id="shippingStreet" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter street address">
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                                        <input type="text" id="shippingCity" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="City">
+                                    </div>
+                                    <div>
+                                        <label class="label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                                        <input type="text" id="shippingState" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="State">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                                        <input type="text" id="shippingZip" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="ZIP Code">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Preferences -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Amazon Day Delivery</h3>
+                                    <p class="text-sm text-gray-600">Group your deliveries to reduce packaging</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="amazonDayDelivery" class="sr-only toggle-switch">
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">Signature Required</h3>
+                                    <p class="text-sm text-gray-600">Require signature for all deliveries</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="signatureRequired" class="sr-only toggle-switch">
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full toggle-switch"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button onclick="saveShippingSettings()" class="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 btn-hover">
+                                Save Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Methods Settings -->
+                <div id="payment" class="settings-section bg-white rounded-lg shadow-sm p-6 animate__animated animate__fadeIn" style="display: none;">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Payment Methods</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Add New Payment Method -->
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Add Payment Method</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+                                    <input type="text" id="cardNumber" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="1234 5678 9012 3456">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                                        <input type="text" id="expiryDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="MM/YY">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+                                        <input type="text" id="cvv" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="123">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Cardholder Name</label>
+                                    <input type="text" id="cardholderName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200" placeholder="Enter cardholder name">
+                                </div>
+                                <button onclick="addPaymentMethod()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 btn-hover">
+                                    Add Payment Method
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Saved Payment Methods -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Saved Payment Methods</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-6 bg-blue-600 rounded flex items-center justify-center">
+                                            <span class="text-white text-xs font-bold">VISA</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">•••• •••• •••• 1234</p>
+                                            <p class="text-sm text-gray-600">Expires 12/25</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="removePaymentMethod('visa')" class="text-red-600 hover:text-red-800 transition-colors duration-200">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-6 bg-red-600 rounded flex items-center justify-center">
+                                            <span class="text-white text-xs font-bold">MC</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">•••• •••• •••• 5678</p>
+                                            <p class="text-sm text-gray-600">Expires 08/26</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="removePaymentMethod('mastercard')" class="text-red-600 hover:text-red-800 transition-colors duration-200">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex items-center space-x-2">
+            <span class="material-icons">check_circle</span>
+            <span id="successText">Settings saved successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // Settings Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.settings-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Update navigation active state
+            document.querySelectorAll('.settings-nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-orange-100', 'text-orange-700');
+                btn.classList.add('text-gray-600');
+            });
+            
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active', 'bg-orange-100', 'text-orange-700');
+        }
+
+        // Load current settings into form fields
+        function loadCurrentSettings() {
+            if (!window.settingsManager) return;
+            
+            // Load notification settings
+            const notifications = window.settingsManager.getSetting('notifications');
+            if (notifications) {
+                Object.keys(notifications).forEach(key => {
+                    const checkbox = document.getElementById(key);
+                    if (checkbox) {
+                        checkbox.checked = notifications[key];
+                        const switchElement = checkbox.nextElementSibling;
+                        if (switchElement) {
+                            switchElement.style.backgroundColor = checkbox.checked ? '#ff9900' : '#e5e7eb';
+                        }
+                    }
+                });
+            }
+
+            // Load privacy settings
+            const privacy = window.settingsManager.getSetting('privacy');
+            if (privacy) {
+                Object.keys(privacy).forEach(key => {
+                    const checkbox = document.getElementById(key);
+                    if (checkbox) {
+                        checkbox.checked = privacy[key];
+                        const switchElement = checkbox.nextElementSibling;
+                        if (switchElement) {
+                            switchElement.style.backgroundColor = checkbox.checked ? '#ff9900' : '#e5e7eb';
+                        }
+                    }
+                });
+            }
+
+            // Load shipping settings
+            const shipping = window.settingsManager.getSetting('shipping');
+            if (shipping) {
+                Object.keys(shipping).forEach(key => {
+                    const checkbox = document.getElementById(key);
+                    if (checkbox) {
+                        checkbox.checked = shipping[key];
+                        const switchElement = checkbox.nextElementSibling;
+                        if (switchElement) {
+                            switchElement.style.backgroundColor = checkbox.checked ? '#ff9900' : '#e5e7eb';
+                        }
+                    }
+                });
+            }
+        }
+
+        // Toggle Switches
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const switchElement = this.nextElementSibling;
+                if (this.checked) {
+                    switchElement.style.backgroundColor = '#ff9900';
+                } else {
+                    switchElement.style.backgroundColor = '#e5e7eb';
+                }
+                
+                // Auto-save settings based on the toggle ID
+                if (window.settingsManager) {
+                    const id = this.id;
+                    
+                    // Determine which category this toggle belongs to
+                    if (['orderUpdates', 'promotionalEmails', 'priceDropAlerts', 'productRecommendations'].includes(id)) {
+                        window.settingsManager.updateSetting('notifications', id, this.checked);
+                    } else if (['dataSharing', 'twoFactorEnabled'].includes(id)) {
+                        window.settingsManager.updateSetting('privacy', id, this.checked);
+                    } else if (['amazonDayDelivery', 'signatureRequired'].includes(id)) {
+                        window.settingsManager.updateSetting('shipping', id, this.checked);
+                    }
+                }
+            });
+        });
+
+
+
+        // Save Functions
+        function saveAccountSettings() {
+            // Save account settings to localStorage
+            const accountData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dob: document.getElementById('dob').value,
+                streetAddress: document.getElementById('streetAddress').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zipCode: document.getElementById('zipCode').value
+            };
+            localStorage.setItem('userAccount', JSON.stringify(accountData));
+            showSuccessMessage('Account settings saved successfully!');
+        }
+
+        function saveNotificationSettings() {
+            if (!window.settingsManager) return;
+            
+            // Save notification settings
+            const notifications = {
+                orderUpdates: document.getElementById('orderUpdates').checked,
+                promotionalEmails: document.getElementById('promotionalEmails').checked,
+                priceDropAlerts: document.getElementById('priceDropAlerts').checked,
+                productRecommendations: document.getElementById('productRecommendations').checked
+            };
+            
+            Object.keys(notifications).forEach(key => {
+                window.settingsManager.updateSetting('notifications', key, notifications[key]);
+            });
+            
+            showSuccessMessage('Notification preferences saved successfully!');
+        }
+
+
+
+        function saveShippingSettings() {
+            if (!window.settingsManager) return;
+            
+            // Save shipping settings
+            const shipping = {
+                amazonDayDelivery: document.getElementById('amazonDayDelivery').checked,
+                signatureRequired: document.getElementById('signatureRequired').checked
+            };
+            
+            Object.keys(shipping).forEach(key => {
+                window.settingsManager.updateSetting('shipping', key, shipping[key]);
+            });
+            
+            // Save shipping address
+            const shippingAddress = {
+                addressLabel: document.getElementById('addressLabel').value,
+                street: document.getElementById('shippingStreet').value,
+                city: document.getElementById('shippingCity').value,
+                state: document.getElementById('shippingState').value,
+                zip: document.getElementById('shippingZip').value
+            };
+            localStorage.setItem('shippingAddress', JSON.stringify(shippingAddress));
+            
+            showSuccessMessage('Shipping settings saved successfully!');
+        }
+
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                showSuccessMessage('Please fill in all password fields', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showSuccessMessage('New passwords do not match', 'error');
+                return;
+            }
+            
+            showSuccessMessage('Password updated successfully!');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function setupTwoFactor() {
+            showSuccessMessage('Two-factor authentication setup initiated. Check your email for instructions.');
+        }
+
+        function addPaymentMethod() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardholderName = document.getElementById('cardholderName').value;
+            
+            if (!cardNumber || !expiryDate || !cvv || !cardholderName) {
+                showSuccessMessage('Please fill in all payment method fields', 'error');
+                return;
+            }
+            
+            showSuccessMessage('Payment method added successfully!');
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('expiryDate').value = '';
+            document.getElementById('cvv').value = '';
+            document.getElementById('cardholderName').value = '';
+        }
+
+        function removePaymentMethod(type) {
+            if (confirm('Are you sure you want to remove this payment method?')) {
+                showSuccessMessage(`${type} payment method removed successfully!`);
+            }
+        }
+
+        function showSuccessMessage(message, type = 'success') {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            
+            if (type === 'error') {
+                successMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50';
+            } else {
+                successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50';
+            }
+            
+            successMessage.classList.remove('translate-x-full');
+            
+            setTimeout(() => {
+                successMessage.classList.add('translate-x-full');
+            }, 3000);
+        }
+
+        // Load saved settings on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load user data if available
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.name) {
+                document.getElementById('fullName').value = user.name;
+            }
+            if (user.email) {
+                document.getElementById('email').value = user.email;
+            }
+            
+            // Load account data if available
+            const accountData = JSON.parse(localStorage.getItem('userAccount') || '{}');
+            if (accountData.fullName) document.getElementById('fullName').value = accountData.fullName;
+            if (accountData.email) document.getElementById('email').value = accountData.email;
+            if (accountData.phone) document.getElementById('phone').value = accountData.phone;
+            if (accountData.dob) document.getElementById('dob').value = accountData.dob;
+            if (accountData.streetAddress) document.getElementById('streetAddress').value = accountData.streetAddress;
+            if (accountData.city) document.getElementById('city').value = accountData.city;
+            if (accountData.state) document.getElementById('state').value = accountData.state;
+            if (accountData.zipCode) document.getElementById('zipCode').value = accountData.zipCode;
+            
+            // Load shipping address if available
+            const shippingAddress = JSON.parse(localStorage.getItem('shippingAddress') || '{}');
+            if (shippingAddress.addressLabel) document.getElementById('addressLabel').value = shippingAddress.addressLabel;
+            if (shippingAddress.street) document.getElementById('shippingStreet').value = shippingAddress.street;
+            if (shippingAddress.city) document.getElementById('shippingCity').value = shippingAddress.city;
+            if (shippingAddress.state) document.getElementById('shippingState').value = shippingAddress.state;
+            if (shippingAddress.zip) document.getElementById('shippingZip').value = shippingAddress.zip;
+            
+            // Load current settings
+            loadCurrentSettings();
+        });
+    </script>
+    <script src="scripts/utils/settings.js"></script>
+    <script src="scripts/global.js"></script>
+</body>
+</html> 

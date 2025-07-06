@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Sign In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .amazon-gradient { background: linear-gradient(135deg, #ff9900 0%, #ff6b35 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.95); }
+        .shadow-glow { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+        .input-focus:focus { box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2); }
+        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 153, 0, 0.3); }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="images/amazon-logo.png" alt="Amazon" class="h-8 w-auto">
+                </div>
+                <div class="text-sm text-gray-600">
+                    <span class="hidden sm:inline">New customer? </span>
+                    <a href="#" id="startHereBtn" class="text-blue-600 hover:text-blue-800 font-medium">Start here</a>
+                    <span class="mx-2">|</span>
+                    <a href="admin.html" class="text-green-600 hover:text-green-800 font-medium">Admin Access</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Sign In Card -->
+            <div class="glass-effect rounded-2xl shadow-glow p-8 animate__animated animate__fadeInUp">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Sign In</h2>
+                    <p class="text-gray-600">Welcome back to Amazon</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="flex mb-8 bg-gray-100 rounded-lg p-1">
+                    <button class="sign-tab js-signin-tab flex-1 py-3 px-4 text-sm font-semibold rounded-md transition-all duration-200 bg-white text-gray-900 shadow-sm">
+                        Sign In
+                    </button>
+                    <button class="sign-tab js-register-tab flex-1 py-3 px-4 text-sm font-semibold rounded-md transition-all duration-200 text-gray-600 hover:text-gray-900">
+                        Register
+                    </button>
+                </div>
+
+                <!-- Sign In Form -->
+                <form class="sign-form js-signin-form space-y-6 animate__animated animate__fadeIn">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" name="password" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Enter your password">
+                        <div class="flex justify-end mt-2">
+                            <button type="button" id="forgotPasswordBtn" 
+                                    class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
+                                Forgot your password?
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" 
+                            class="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 btn-hover">
+                        Sign In
+                    </button>
+                    
+                    <!-- Google Sign In -->
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <a href="http://localhost:3000/auth/google" 
+                       class="flex items-center justify-center gap-3 w-full py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200 btn-hover bg-white">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span class="font-medium text-gray-700">Sign in with Google</span>
+                    </a>
+                    
+                    <div class="sign-message js-signin-message text-center text-sm"></div>
+                </form>
+
+                <!-- Register Form -->
+                <form class="sign-form js-register-form space-y-6 animate__animated animate__fadeIn" style="display:none;">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" name="name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Enter your full name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Enter your email">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" name="password" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Create a password">
+                    </div>
+                    <button type="submit" 
+                            class="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 btn-hover">
+                        Create Account
+                    </button>
+                    
+                    <!-- Google Register -->
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <a href="http://localhost:3000/auth/google" 
+                       class="flex items-center justify-center gap-3 w-full py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200 btn-hover bg-white">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span class="font-medium text-gray-700">Register with Google</span>
+                    </a>
+                    
+                    <div class="sign-message js-register-message text-center text-sm"></div>
+                </form>
+
+
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center text-sm text-gray-600">
+                <p>By continuing, you agree to Amazon's <a href="#" class="text-blue-600 hover:text-blue-800">Conditions of Use</a> and <a href="#" class="text-blue-600 hover:text-blue-800">Privacy Notice</a>.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-glow p-8 max-w-md w-full mx-4 animate__animated animate__fadeInUp">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900">Reset Password</h3>
+                <p class="text-gray-600 mt-2">Enter your email to receive a password reset link</p>
+            </div>
+
+            <form id="forgotPasswordForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" name="resetEmail" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                           placeholder="Enter your email address">
+                </div>
+                
+                <div id="newPasswordSection" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                        <input type="password" name="newPassword" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Enter new password">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                        <input type="password" name="confirmPassword" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none input-focus transition-all duration-200"
+                               placeholder="Confirm new password">
+                    </div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button type="button" id="cancelForgotPassword" 
+                            class="flex-1 py-3 px-4 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-200">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submitForgotPassword"
+                            class="flex-1 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 btn-hover">
+                        Verify Email
+                    </button>
+                </div>
+                
+                <div id="forgotPasswordMessage" class="text-center text-sm"></div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Admin Registration Success Popup -->
+    <div id="adminRegistrationSuccessPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-glow p-8 max-w-md w-full mx-4 animate__animated animate__fadeInUp">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">🎉 Registration Successful!</h3>
+                <p class="text-gray-600">Admin account has been created successfully</p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-700">Name:</span>
+                    <span class="text-sm text-gray-900 admin-name font-semibold"></span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-700">Email:</span>
+                    <span class="text-sm text-gray-900 admin-email font-semibold"></span>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="hideAdminRegistrationSuccess()" 
+                        class="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 btn-hover">
+                    Continue to Login
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Register Video Modal -->
+    <div id="howToRegisterModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-glow p-6 max-w-4xl w-full mx-4 animate__animated animate__fadeInUp">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-900">How to Register</h3>
+                <button id="closeHowToRegisterModal" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                <video id="howToRegisterVideo" controls class="w-full h-full">
+                    <source src="images/icons/how to register.mov" type="video/quicktime">
+                    <source src="images/icons/how to register.mov" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <p class="text-sm text-gray-600">Watch this video to learn how to register for a new Amazon account</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main tab switching
+        const signinTab = document.querySelector('.js-signin-tab');
+        const registerTab = document.querySelector('.js-register-tab');
+        const signinForm = document.querySelector('.js-signin-form');
+        const registerForm = document.querySelector('.js-register-form');
+        
+        function showForm(form) {
+            [signinForm, registerForm].forEach(f => {
+                f.style.display = 'none';
+                f.classList.remove('animate__fadeIn');
+            });
+            form.style.display = '';
+            form.classList.add('animate__fadeIn');
+        }
+        
+        function setActiveTab(tab) {
+            [signinTab, registerTab].forEach(t => {
+                t.classList.remove('active', 'bg-white', 'text-gray-900', 'shadow-sm');
+                t.classList.add('text-gray-600');
+            });
+            tab.classList.add('active', 'bg-white', 'text-gray-900', 'shadow-sm');
+            tab.classList.remove('text-gray-600');
+        }
+        
+        signinTab.onclick = () => {
+            setActiveTab(signinTab);
+            showForm(signinForm);
+        };
+        
+        registerTab.onclick = () => {
+            setActiveTab(registerTab);
+            showForm(registerForm);
+        };
+        
+
+        
+        // Sign In
+        signinForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(signinForm);
+            const res = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.get('email'),
+                    password: formData.get('password')
+                }),
+                credentials: 'include'
+            });
+            const msg = document.querySelector('.js-signin-message');
+            if (res.ok) {
+                const user = await res.json();
+                localStorage.setItem('user', JSON.stringify(user));
+                msg.textContent = 'Sign in successful! Redirecting...';
+                msg.className = 'sign-message js-signin-message text-center text-sm text-green-600';
+                setTimeout(() => window.location.href = 'amazon.html', 1000);
+            } else {
+                msg.textContent = 'Invalid email or password.';
+                msg.className = 'sign-message js-signin-message text-center text-sm text-red-600';
+            }
+        };
+        
+        // Register
+        registerForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(registerForm);
+            const res = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    password: formData.get('password')
+                }),
+                credentials: 'include'
+            });
+            const msg = document.querySelector('.js-register-message');
+            if (res.ok) {
+                msg.textContent = 'Registration successful! You can now sign in.';
+                msg.className = 'sign-message js-register-message text-center text-sm text-green-600';
+                setTimeout(() => {
+                    setActiveTab(signinTab);
+                    showForm(signinForm);
+                }, 1000);
+            } else {
+                msg.textContent = 'Registration failed. Email may already be in use.';
+                msg.className = 'sign-message js-register-message text-center text-sm text-red-600';
+            }
+        };
+        
+
+
+        // Forgot Password Functionality
+        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+        const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+        const cancelForgotPassword = document.getElementById('cancelForgotPassword');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        const forgotPasswordMessage = document.getElementById('forgotPasswordMessage');
+
+        // Show forgot password modal
+        forgotPasswordBtn.onclick = () => {
+            forgotPasswordModal.classList.remove('hidden');
+            forgotPasswordModal.querySelector('.animate__fadeInUp').classList.add('animate__fadeInUp');
+        };
+
+        // Hide forgot password modal
+        cancelForgotPassword.onclick = () => {
+            forgotPasswordModal.classList.add('hidden');
+            forgotPasswordForm.reset();
+            forgotPasswordMessage.textContent = '';
+            // Reset form state
+            document.getElementById('newPasswordSection').classList.add('hidden');
+            document.getElementById('submitForgotPassword').textContent = 'Verify Email';
+        };
+
+        // Close modal when clicking outside
+        forgotPasswordModal.onclick = (e) => {
+            if (e.target === forgotPasswordModal) {
+                forgotPasswordModal.classList.add('hidden');
+                forgotPasswordForm.reset();
+                forgotPasswordMessage.textContent = '';
+                // Reset form state
+                document.getElementById('newPasswordSection').classList.add('hidden');
+                document.getElementById('submitForgotPassword').textContent = 'Verify Email';
+            }
+        };
+
+        // Handle forgot password form submission
+        forgotPasswordForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(forgotPasswordForm);
+            const email = formData.get('resetEmail');
+            const newPassword = formData.get('newPassword');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            const submitBtn = document.getElementById('submitForgotPassword');
+            const newPasswordSection = document.getElementById('newPasswordSection');
+            const isEmailVerified = newPasswordSection.classList.contains('hidden');
+            
+            // Show loading state
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            try {
+                if (isEmailVerified) {
+                    // Step 1: Verify email
+                    const res = await fetch('http://localhost:3000/forgot-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    
+                    if (res.ok) {
+                        // Show password fields
+                        newPasswordSection.classList.remove('hidden');
+                        submitBtn.textContent = 'Reset Password';
+                        forgotPasswordMessage.textContent = 'Email verified! Enter your new password.';
+                        forgotPasswordMessage.className = 'text-center text-sm text-green-600';
+                        
+                        // Make password fields required
+                        newPasswordSection.querySelectorAll('input').forEach(input => {
+                            input.setAttribute('required', '');
+                        });
+                    } else {
+                        const error = await res.json();
+                        forgotPasswordMessage.textContent = error.error || 'Email not found.';
+                        forgotPasswordMessage.className = 'text-center text-sm text-red-600';
+                    }
+                } else {
+                    // Step 2: Reset password
+                    if (newPassword !== confirmPassword) {
+                        forgotPasswordMessage.textContent = 'Passwords do not match.';
+                        forgotPasswordMessage.className = 'text-center text-sm text-red-600';
+                        return;
+                    }
+                    
+                    if (newPassword.length < 6) {
+                        forgotPasswordMessage.textContent = 'Password must be at least 6 characters.';
+                        forgotPasswordMessage.className = 'text-center text-sm text-red-600';
+                        return;
+                    }
+                    
+                    const res = await fetch('http://localhost:3000/forgot-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, newPassword })
+                    });
+                    
+                    if (res.ok) {
+                        forgotPasswordMessage.textContent = 'Password reset successfully! You can now sign in.';
+                        forgotPasswordMessage.className = 'text-center text-sm text-green-600';
+                        forgotPasswordForm.reset();
+                        setTimeout(() => {
+                            forgotPasswordModal.classList.add('hidden');
+                            newPasswordSection.classList.add('hidden');
+                            submitBtn.textContent = 'Verify Email';
+                        }, 2000);
+                    } else {
+                        const error = await res.json();
+                        forgotPasswordMessage.textContent = error.error || 'Failed to reset password.';
+                        forgotPasswordMessage.className = 'text-center text-sm text-red-600';
+                    }
+                }
+            } catch (err) {
+                forgotPasswordMessage.textContent = 'Network error. Please try again.';
+                forgotPasswordMessage.className = 'text-center text-sm text-red-600';
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        };
+
+        // How to Register Video Modal Functionality
+        const startHereBtn = document.getElementById('startHereBtn');
+        const howToRegisterModal = document.getElementById('howToRegisterModal');
+        const closeHowToRegisterModal = document.getElementById('closeHowToRegisterModal');
+        const howToRegisterVideo = document.getElementById('howToRegisterVideo');
+
+        // Show how to register modal
+        startHereBtn.onclick = (e) => {
+            e.preventDefault();
+            howToRegisterModal.classList.remove('hidden');
+            howToRegisterModal.querySelector('.animate__fadeInUp').classList.add('animate__fadeInUp');
+        };
+
+        // Hide how to register modal
+        closeHowToRegisterModal.onclick = () => {
+            howToRegisterModal.classList.add('hidden');
+            howToRegisterVideo.pause(); // Pause video when closing
+        };
+
+        // Close modal when clicking outside
+        howToRegisterModal.onclick = (e) => {
+            if (e.target === howToRegisterModal) {
+                howToRegisterModal.classList.add('hidden');
+                howToRegisterVideo.pause(); // Pause video when closing
+            }
+        };
+
+
+    </script>
+    <script src="scripts/utils/settings.js"></script>
+    <script src="scripts/global.js"></script>
+</body>
+</html> 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Feedback</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg animate__animated animate__fadeInDown">
+    <h1 class="text-2xl font-bold mb-4 text-center">Contact & Feedback</h1>
+    <p class="mb-6 text-gray-600 text-center">We value your feedback! Please fill out the form below to send us your comments, questions, or suggestions.</p>
+    <form id="feedback-form" class="space-y-4">
+      <div>
+        <label for="name" class="block text-gray-700 font-semibold mb-1">Name</label>
+        <input type="text" id="name" name="name" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+      </div>
+      <div>
+        <label for="email" class="block text-gray-700 font-semibold mb-1">Email</label>
+        <input type="email" id="email" name="email" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+      </div>
+      <div>
+        <label for="message" class="block text-gray-700 font-semibold mb-1">Feedback</label>
+        <textarea id="message" name="message" rows="4" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" required></textarea>
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">Submit Feedback</button>
+    </form>
+    <div id="thank-you" class="hidden text-green-600 font-semibold text-center mt-6 animate__animated animate__fadeIn">Thank you for your feedback!</div>
+    <a href="amazon.html" class="block text-center mt-6 text-blue-600 hover:underline">&larr; Back to Shop</a>
+  </div>
+  <script>
+    const form = document.getElementById('feedback-form');
+    const thankYou = document.getElementById('thank-you');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      form.classList.add('hidden');
+      thankYou.classList.remove('hidden');
+    });
+  </script>
+  <script src="scripts/global.js"></script>
+</body>
+</html> 

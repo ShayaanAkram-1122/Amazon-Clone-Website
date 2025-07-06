@@ -1,0 +1,74 @@
+/* Additional styles for shipping.html */
+body {
+  background: #f6f7f8;
+}
+.shipping-container {
+  max-width: 440px;
+  margin: 60px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  padding: 40px 32px 32px 32px;
+  transition: box-shadow 0.3s;
+  animation: pop-in 0.7s cubic-bezier(.23,1.01,.32,1) both;
+}
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+  100% { opacity: 1; transform: none; }
+}
+.shipping-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  text-align: center;
+  color: #232f3e;
+}
+.shipping-form input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #f9f9f9;
+}
+.shipping-form input:focus {
+  border: 1.5px solid #ffd814;
+  box-shadow: 0 0 0 2px #ffe066;
+  outline: none;
+  background: #fffbe6;
+}
+.shipping-form button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.15rem;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#ffd814 60%,#f7ca00 100%);
+  color: #232f3e;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(213,217,217,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.shipping-form button:hover {
+  background: linear-gradient(90deg,#f7ca00 60%,#ffd814 100%);
+  box-shadow: 0 4px 16px rgba(213,217,217,0.18);
+}
+.shipping-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.shipping-nav a {
+  text-decoration: none;
+  color: #007185;
+  font-weight: 500;
+  font-size: 1.08rem;
+  transition: color 0.2s;
+}
+.shipping-nav a:hover {
+  color: #f7ca00;
+} 

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tracking</title>
+    <title>Package Tracking</title>
 
-    <!-- This code is needed for responsive design to work.
-      (Responsive design = make the website look good on
-      smaller screen sizes like a phone or a tablet). -->
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Load a font called Roboto from Google Fonts. -->
@@ -15,78 +13,291 @@
 
     <!-- Here are the CSS files for this page. -->
     <link rel="stylesheet" href="styles/shared/general.css">
-    <link rel="stylesheet" href="styles/shared/amazon-header.css">
-    <link rel="stylesheet" href="styles/pages/tracking.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
   </head>
-  <body>
-    <div class="amazon-header">
-      <div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
-          <img class="amazon-logo"
-            src="images/amazon-logo-white.png">
-          <img class="amazon-mobile-logo"
-            src="images/amazon-mobile-logo-white.png">
-        </a>
-      </div>
-
-      <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
-
-        <button class="search-button">
-          <img class="search-icon" src="images/icons/search-icon.png">
-        </button>
-      </div>
-
-      <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="orders.html">
-          <span class="returns-text">Returns</span>
-          <span class="orders-text">& Orders</span>
-        </a>
-
-        <a class="cart-link header-link" href="checkout.html">
-          <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity">3</div>
-          <div class="cart-text">Cart</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="main">
-      <div class="order-tracking">
-        <a class="back-to-orders-link link-primary" href="orders.html">
-          View all orders
-        </a>
-
-        <div class="delivery-date">
-          Arriving on Monday, June 13
+  <body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen transition-colors duration-300">
+    <script>
+      if (!localStorage.getItem('user')) {
+        window.location.href = 'sign.html';
+      }
+    </script>
+    <div class="checkout-header sticky top-0 z-50 shadow bg-white flex items-center px-4 py-2 animate__animated animate__fadeInDown">
+      <div class="header-content w-full max-w-6xl mx-auto flex items-center justify-between">
+        <div class="checkout-header-left-section flex items-center">
+          <a href="amazon.html">
+            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+          </a>
         </div>
-
-        <div class="product-info">
-          Black and Gray Athletic Cotton Socks - 6 Pairs
+        <div class="checkout-header-middle-section text-xl font-bold text-gray-800">
+          Package Tracking
         </div>
-
-        <div class="product-info">
-          Quantity: 1
-        </div>
-
-        <img class="product-image" src="images/products/athletic-cotton-socks-6-pairs.jpg">
-
-        <div class="progress-labels-container">
-          <div class="progress-label">
-            Preparing
-          </div>
-          <div class="progress-label current-status">
-            Shipped
-          </div>
-          <div class="progress-label">
-            Delivered
-          </div>
-        </div>
-
-        <div class="progress-bar-container">
-          <div class="progress-bar"></div>
+        <div class="checkout-header-right-section flex items-center">
+          <a href="returns.html" class="text-blue-600 hover:underline mr-4 text-sm flex items-center">
+            <img src="images/icons/returns.png" alt="Returns" class="w-5 h-5 mr-1">
+            Returns
+          </a>
+          <img src="images/icons/checkout-lock-icon.png" class="h-8">
         </div>
       </div>
     </div>
+    
+    <main class="main w-full max-w-6xl mx-auto mt-24 flex flex-col md:flex-row gap-8 animate__animated animate__fadeInUp">
+      <section class="flex-1 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInLeft">
+        <div class="mb-6">
+          <a href="orders.html" class="text-blue-600 hover:underline text-sm flex items-center">
+            <span class="material-icons text-sm mr-1">arrow_back</span>
+            Back to Orders
+          </a>
+        </div>
+
+        <div class="js-tracking-container">
+          <!-- Loading state -->
+          <div class="text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <div class="text-gray-500 mt-4">Loading tracking information...</div>
+          </div>
+        </div>
+      </section>
+      
+      <aside class="w-full md:w-96 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInRight flex flex-col gap-6">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-green-600">local_shipping</span> Tracking Info
+        </h2>
+        <div class="tracking-info space-y-4">
+          <div class="js-order-info">
+            <div class="text-sm text-gray-600">Order ID</div>
+            <div class="font-mono text-lg font-bold js-order-id">-</div>
+          </div>
+          <div class="js-delivery-info">
+            <div class="text-sm text-gray-600">Estimated Delivery</div>
+            <div class="text-lg font-bold text-green-700 js-delivery-date">-</div>
+          </div>
+          <div class="js-carrier-info">
+            <div class="text-sm text-gray-600">Carrier</div>
+            <div class="text-lg font-bold js-carrier">Amazon Logistics</div>
+          </div>
+        </div>
+        <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <div class="flex items-center gap-2 text-blue-800">
+            <span class="material-icons text-sm">info</span>
+            <span class="text-sm font-medium">Need Help?</span>
+          </div>
+          <p class="text-blue-700 text-xs mt-1">Contact customer service for delivery assistance.</p>
+          <a href="help.html" class="text-blue-600 hover:underline text-sm mt-2 inline-block">Contact Support</a>
+        </div>
+      </aside>
+    </main>
+    
+    <script type="module">
+      import { products } from './data/products.js';
+      import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get('orderId');
+      const productId = urlParams.get('productId');
+
+      // Tracking statuses
+      const trackingStatuses = [
+        { id: 'ordered', label: 'Order Placed', icon: 'receipt', color: 'text-blue-600' },
+        { id: 'preparing', label: 'Preparing', icon: 'inventory', color: 'text-yellow-600' },
+        { id: 'shipped', label: 'Shipped', icon: 'local_shipping', color: 'text-orange-600' },
+        { id: 'out_for_delivery', label: 'Out for Delivery', icon: 'delivery_dining', color: 'text-purple-600' },
+        { id: 'delivered', label: 'Delivered', icon: 'check_circle', color: 'text-green-600' }
+      ];
+
+      // Simulate tracking data based on order date
+      function getTrackingStatus(orderDate) {
+        const now = new Date();
+        const orderTime = new Date(orderDate);
+        const daysSinceOrder = Math.floor((now - orderTime) / (1000 * 60 * 60 * 24));
+        
+        if (daysSinceOrder < 1) return 'ordered';
+        if (daysSinceOrder < 2) return 'preparing';
+        if (daysSinceOrder < 4) return 'shipped';
+        if (daysSinceOrder < 5) return 'out_for_delivery';
+        return 'delivered';
+      }
+
+      function getEstimatedDelivery(orderDate) {
+        const orderTime = new Date(orderDate);
+        return dayjs(orderTime).add(5, 'day').format('dddd, MMMM D');
+      }
+
+      function renderTrackingInfo(product, orderId, orderDate) {
+        const currentStatus = getTrackingStatus(orderDate);
+        const estimatedDelivery = getEstimatedDelivery(orderDate);
+        const currentStatusIndex = trackingStatuses.findIndex(s => s.id === currentStatus);
+
+        const container = document.querySelector('.js-tracking-container');
+        
+        container.innerHTML = `
+          <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">${product.name}</h1>
+            <div class="text-gray-600 mb-4">Order ID: ${orderId}</div>
+            <div class="text-lg font-semibold text-green-700 mb-6">Estimated delivery: ${estimatedDelivery}</div>
+          </div>
+
+          <div class="mb-8">
+            <img src="${product.image}" alt="${product.name}" class="w-48 h-48 object-contain bg-white border rounded-lg mx-auto">
+          </div>
+
+          <div class="tracking-progress mb-8">
+            <div class="flex justify-between items-center mb-4">
+              ${trackingStatuses.map((status, index) => `
+                <div class="flex flex-col items-center ${index <= currentStatusIndex ? 'text-gray-800' : 'text-gray-400'}">
+                  <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
+                    index < currentStatusIndex ? 'bg-green-100 text-green-600' : 
+                    index === currentStatusIndex ? 'bg-blue-100 text-blue-600' : 
+                    'bg-gray-100 text-gray-400'
+                  }">
+                    <span class="material-icons text-xl">${status.icon}</span>
+                  </div>
+                  <div class="text-xs text-center max-w-20">${status.label}</div>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="relative">
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" 
+                     style="width: ${((currentStatusIndex + 1) / trackingStatuses.length) * 100}%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tracking-details bg-gray-50 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Tracking Details</h3>
+            <div class="space-y-3">
+              ${generateTrackingEvents(currentStatus, orderDate).map(event => `
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div class="flex-1">
+                    <div class="font-medium">${event.status}</div>
+                    <div class="text-sm text-gray-600">${event.location}</div>
+                    <div class="text-xs text-gray-500">${event.time}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        // Update sidebar info
+        document.querySelector('.js-order-id').textContent = orderId;
+        document.querySelector('.js-delivery-date').textContent = estimatedDelivery;
+      }
+
+      function generateTrackingEvents(currentStatus, orderDate) {
+        const events = [
+          {
+            status: 'Order Placed',
+            location: 'Online',
+            time: new Date(orderDate).toLocaleString()
+          }
+        ];
+
+        const orderTime = new Date(orderDate);
+        const now = new Date();
+        const daysSinceOrder = Math.floor((now - orderTime) / (1000 * 60 * 60 * 24));
+
+        if (daysSinceOrder >= 1) {
+          events.push({
+            status: 'Order Confirmed',
+            location: 'Amazon Fulfillment Center',
+            time: dayjs(orderTime).add(1, 'day').format('MMM D, YYYY h:mm A')
+          });
+        }
+
+        if (daysSinceOrder >= 2) {
+          events.push({
+            status: 'Package Prepared',
+            location: 'Amazon Fulfillment Center',
+            time: dayjs(orderTime).add(2, 'day').format('MMM D, YYYY h:mm A')
+          });
+        }
+
+        if (daysSinceOrder >= 3) {
+          events.push({
+            status: 'Package Shipped',
+            location: 'Amazon Fulfillment Center',
+            time: dayjs(orderTime).add(3, 'day').format('MMM D, YYYY h:mm A')
+          });
+        }
+
+        if (daysSinceOrder >= 4) {
+          events.push({
+            status: 'Out for Delivery',
+            location: 'Local Delivery Center',
+            time: dayjs(orderTime).add(4, 'day').format('MMM D, YYYY h:mm A')
+          });
+        }
+
+        if (daysSinceOrder >= 5) {
+          events.push({
+            status: 'Delivered',
+            location: 'Your Address',
+            time: dayjs(orderTime).add(5, 'day').format('MMM D, YYYY h:mm A')
+          });
+        }
+
+        return events.reverse();
+      }
+
+      async function loadTrackingData() {
+        if (!orderId || !productId) {
+          document.querySelector('.js-tracking-container').innerHTML = `
+            <div class="text-center py-12">
+              <div class="text-red-500 text-lg mb-4">Invalid tracking information</div>
+              <a href="orders.html" class="text-blue-600 hover:underline">Back to Orders</a>
+            </div>
+          `;
+          return;
+        }
+
+        try {
+          // Get product information
+          const product = products.find(p => p.id === productId);
+          if (!product) {
+            throw new Error('Product not found');
+          }
+
+          // Get order information from backend
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          const res = await fetch(`http://localhost:3000/orders/${user.id}`);
+          
+          if (!res.ok) {
+            throw new Error('Failed to fetch order');
+          }
+
+          const orders = await res.json();
+          const order = orders.find(o => o.id.toString() === orderId);
+          
+          if (!order) {
+            throw new Error('Order not found');
+          }
+
+          renderTrackingInfo(product, orderId, order.created_at || order.createdAt || Date.now());
+
+        } catch (error) {
+          console.error('Error loading tracking data:', error);
+          document.querySelector('.js-tracking-container').innerHTML = `
+            <div class="text-center py-12">
+              <div class="text-red-500 text-lg mb-4">Failed to load tracking information</div>
+              <a href="orders.html" class="text-blue-600 hover:underline">Back to Orders</a>
+            </div>
+          `;
+        }
+      }
+
+      // Load tracking data when page loads
+      document.addEventListener('DOMContentLoaded', loadTrackingData);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="scripts/global.js"></script>
   </body>
 </html>

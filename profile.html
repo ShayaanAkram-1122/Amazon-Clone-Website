@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md animate__animated animate__fadeInDown">
+    <h1 class="text-2xl font-bold mb-4 text-center">Your Profile</h1>
+    <div class="flex flex-col items-center mb-6">
+      <img id="profile-avatar" class="w-20 h-20 rounded-full mb-2" src="https://ui-avatars.com/api/?name=User&background=232f3e&color=fff&rounded=true&size=80">
+      <div id="profile-name" class="font-semibold text-lg">User Name</div>
+      <div id="profile-email" class="text-gray-500 text-sm">user@email.com</div>
+    </div>
+    <a href="amazon.html" class="block text-center mt-6 text-blue-600 hover:underline">&#8592; Back to Shop</a>
+  </div>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.name && user.email) {
+      document.getElementById('profile-name').textContent = user.name;
+      document.getElementById('profile-email').textContent = user.email;
+      document.getElementById('profile-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=232f3e&color=fff&rounded=true&size=80`;
+    }
+  </script>
+  <script src="scripts/global.js"></script>
+</body>
+</html> 

@@ -62,16 +62,36 @@ input, select, button {
   box-shadow: none;
 }
 
-/* These styles will limit text to 2 lines. Anything
-   beyond 2 lines will be replaced with "..."
+/* These styles will limit text to 3 lines for better readability. Anything
+   beyond 3 lines will be replaced with "..."
    You can find this code by using an A.I. tool or by
    searching in Google.
    https://css-tricks.com/almanac/properties/l/line-clamp/ */
 .limit-text-to-2-lines {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.3;
+  min-height: 3.9em; /* 3 lines * 1.3 line-height */
+  
+  /* Fallback for browsers that don't support -webkit-line-clamp */
+  max-height: 3.9em;
+  position: relative;
+}
+
+/* Fallback for browsers without -webkit-line-clamp support */
+@supports not (-webkit-line-clamp: 3) {
+  .limit-text-to-2-lines::after {
+    content: "...";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: inherit;
+    padding-left: 4px;
+  }
 }
 
 .link-primary {

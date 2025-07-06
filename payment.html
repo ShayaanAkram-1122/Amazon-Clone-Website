@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/shared/general.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+  </head>
+  <body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen transition-colors duration-300">
+    <script>
+      if (!localStorage.getItem('user')) {
+        window.location.href = 'sign.html';
+      }
+    </script>
+    <div class="checkout-header sticky top-0 z-50 shadow bg-white flex items-center px-4 py-2 animate__animated animate__fadeInDown">
+      <div class="header-content w-full max-w-6xl mx-auto flex items-center justify-between">
+        <div class="checkout-header-left-section flex items-center">
+          <a href="amazon.html">
+            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+          </a>
+        </div>
+        <div class="checkout-header-middle-section text-xl font-bold text-gray-800">
+          Payment Method
+        </div>
+        <div class="checkout-header-right-section flex items-center">
+          <a href="returns.html" class="text-blue-600 hover:underline mr-4 text-sm flex items-center">
+            <img src="images/icons/returns.png" alt="Returns" class="w-5 h-5 mr-1">
+            Returns
+          </a>
+          <img src="images/icons/checkout-lock-icon.png" class="h-8">
+        </div>
+      </div>
+    </div>
+    
+    <main class="main w-full max-w-6xl mx-auto mt-24 flex flex-col md:flex-row gap-8 animate__animated animate__fadeInUp">
+      <section class="flex-1 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInLeft">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+            <span class="material-icons text-blue-600">credit_card</span> Payment Information
+          </h2>
+          <div class="text-sm text-gray-500">
+            Step 3 of 3
+          </div>
+        </div>
+        
+        <div class="mb-6">
+          <a href="shipping.html" class="text-blue-600 hover:underline text-sm flex items-center">
+            <span class="material-icons text-sm mr-1">arrow_back</span>
+            Back to Shipping
+          </a>
+        </div>
+
+        <form class="payment-form js-payment-form space-y-6">
+          <div class="payment-methods js-payment-methods flex gap-4 mb-6">
+            <div class="payment-method selected flex items-center gap-2 cursor-pointer border-2 border-blue-600 rounded-lg p-3 bg-blue-50 transition-all" data-method="visa">
+              <img src="images/icons/visa.png" alt="Visa" class="h-6"> 
+              <span class="font-medium">Visa</span>
+            </div>
+            <div class="payment-method flex items-center gap-2 cursor-pointer border-2 border-gray-200 rounded-lg p-3 hover:border-gray-300 transition-all" data-method="mastercard">
+              <img src="images/icons/mastercard.png" alt="MasterCard" class="h-6"> 
+              <span class="font-medium">MasterCard</span>
+            </div>
+            <div class="payment-method flex items-center gap-2 cursor-pointer border-2 border-gray-200 rounded-lg p-3 hover:border-gray-300 transition-all" data-method="paypal">
+              <img src="images/icons/paypal.png" alt="PayPal" class="h-6"> 
+              <span class="font-medium">PayPal</span>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Name on Card</label>
+              <input type="text" name="cardName" placeholder="John Doe" required 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+              <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456" required pattern="[0-9]{13,16}"
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+              <input type="text" name="expiry" placeholder="MM/YY" required pattern="(0[1-9]|1[0-2])\/([0-9]{2})"
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">CVC</label>
+              <input type="text" name="cvc" placeholder="123" required pattern="[0-9]{3,4}"
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            </div>
+          </div>
+          
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="flex items-center gap-2 text-blue-800">
+              <span class="material-icons text-sm">security</span>
+              <span class="text-sm font-medium">Secure Payment</span>
+            </div>
+            <p class="text-blue-700 text-xs mt-1">Your payment information is encrypted and secure.</p>
+          </div>
+          
+          <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 px-6 rounded-lg hover:bg-blue-700 transition text-lg animate__animated animate__pulse">
+            Complete Payment
+          </button>
+        </form>
+      </section>
+      
+      <aside class="w-full md:w-96 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInRight flex flex-col gap-6">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-green-600">receipt</span> Order Summary
+        </h2>
+        <div class="order-summary space-y-4">
+          <div class="flex justify-between text-sm">
+            <span>Items:</span>
+            <span class="js-items-total">$0.00</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span>Shipping:</span>
+            <span class="js-shipping-total">$0.00</span>
+          </div>
+          <div class="flex justify-between text-sm font-semibold border-t pt-2">
+            <span>Total:</span>
+            <span class="js-total-amount">$0.00</span>
+          </div>
+        </div>
+        <div class="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div class="flex items-center gap-2 text-green-800">
+            <span class="material-icons text-sm">check_circle</span>
+            <span class="text-sm font-medium">Almost Done!</span>
+          </div>
+          <p class="text-green-700 text-xs mt-1">Complete your payment to place your order.</p>
+        </div>
+      </aside>
+    </main>
+    
+    <script type="module">
+      import { updateOrderSummaryDisplay } from './scripts/utils/orderSummary.js';
+      
+      // Update order summary when page loads
+      document.addEventListener('DOMContentLoaded', async function() {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.id) {
+          await updateOrderSummaryDisplay(user.id);
+        }
+      });
+      
+      // Payment method selection
+      const methods = document.querySelectorAll('.payment-method');
+      let selectedMethod = 'visa';
+      methods.forEach(m => {
+        m.addEventListener('click', () => {
+          methods.forEach(x => {
+            x.classList.remove('selected', 'border-blue-600', 'bg-blue-50');
+            x.classList.add('border-gray-200');
+          });
+          m.classList.add('selected', 'border-blue-600', 'bg-blue-50');
+          m.classList.remove('border-gray-200');
+          selectedMethod = m.dataset.method;
+        });
+      });
+      
+      document.querySelector('.js-payment-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const paymentInfo = {};
+        for (const [key, value] of formData.entries()) {
+          paymentInfo[key] = value;
+        }
+        paymentInfo.method = selectedMethod;
+        localStorage.setItem('paymentInfo', JSON.stringify(paymentInfo));
+        
+        // --- New logic for payment success and order status update ---
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (!user.id) {
+          alert('You must be logged in to pay.');
+          return;
+        }
+        
+        // Get the pending order ID from localStorage
+        const pendingOrderId = localStorage.getItem('pendingOrderId');
+        console.log('Payment attempt - pendingOrderId:', pendingOrderId);
+        if (!pendingOrderId) {
+          alert('No pending order found. Please go back to checkout and place your order again.');
+          return;
+        }
+        
+        // Verify the order exists and belongs to the user
+        const orderCheckRes = await fetch(`http://localhost:3000/orders/${user.id}`);
+        if (orderCheckRes.ok) {
+          const orders = await orderCheckRes.json();
+          const orderExists = orders.find(order => order.id == pendingOrderId && order.status === 'unpaid');
+          if (!orderExists) {
+            alert('Order not found or already paid. Please go back to checkout and place your order again.');
+            localStorage.removeItem('pendingOrderId');
+            return;
+          }
+        }
+        
+        // Update order status to paid
+        const payRes = await fetch(`http://localhost:3000/orders/${pendingOrderId}/pay`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user.id })
+        });
+        
+        if (payRes.ok) {
+          // Clear cart only after successful payment
+          await fetch(`http://localhost:3000/cart/${user.id}`, {
+            method: 'DELETE'
+          });
+          
+          // Clear pending order ID from localStorage
+          localStorage.removeItem('pendingOrderId');
+          
+          // Show payment success popup
+          alert('Payment successful! Your order has been placed.');
+          window.location.href = 'orders.html';
+        } else {
+          const errorData = await payRes.json();
+          console.error('Payment failed:', errorData);
+          alert(`Payment failed: ${errorData.error || 'Please try again.'}`);
+        }
+      });
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="scripts/global.js"></script>
+  </body>
+</html> 

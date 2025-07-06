@@ -7,56 +7,57 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/shared/general.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
     <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
   </head>
-  <body>
-    <div class="checkout-header">
-      <div class="header-content">
-        <div class="checkout-header-left-section">
+  <body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen transition-colors duration-300">
+    <script>
+      if (!localStorage.getItem('user')) {
+        window.location.href = 'sign.html';
+      }
+    </script>
+    <div class="checkout-header sticky top-0 z-50 shadow bg-white flex items-center px-4 py-2 animate__animated animate__fadeInDown">
+      <div class="header-content w-full max-w-6xl mx-auto flex items-center justify-between">
+        <div class="checkout-header-left-section flex items-center">
           <a href="amazon.html">
             <img class="amazon-logo" src="images/amazon-logo.png">
             <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
           </a>
         </div>
-        <div class="checkout-header-middle-section">
-          Checkout (<a class="return-to-home-link" href="amazon.html"><span id="total-items"></span> items</a>)
+        <div class="checkout-header-middle-section text-xl font-bold text-gray-800">
+          Checkout (<a class="return-to-home-link text-blue-600 hover:underline" href="amazon.html"><span id="total-items"></span> items</a>)
         </div>
-        <div class="checkout-header-right-section">
-          <img src="images/icons/checkout-lock-icon.png">
+        <div class="checkout-header-right-section flex items-center">
+          <a href="returns.html" class="text-blue-600 hover:underline mr-4 text-sm">Returns</a>
+          <img src="images/icons/checkout-lock-icon.png" class="h-8">
         </div>
       </div>
     </div>
-    <div class="main">
-      <div class="page-title">Review your order</div>
-      <div class="checkout-grid">
-        <div class="order-summary js-order-summary"></div>
-      </div>
-      <div class="payment-summary">
-        <div class="payment-summary-title">Order Summary</div>
-        <div class="payment-summary-row">
-          <div>Items:</div>
-          <div class="payment-summary-money"></div>
+    <main class="main w-full max-w-6xl mx-auto mt-24 flex flex-col md:flex-row gap-8 animate__animated animate__fadeInUp">
+      <section class="flex-1 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInLeft">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-blue-600">shopping_cart</span> Order Summary
+        </h2>
+        <div class="js-order-summary space-y-8"></div>
+      </section>
+      <aside class="w-full md:w-96 bg-white rounded-xl shadow-lg p-8 animate__animated animate__fadeInRight flex flex-col gap-6">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-green-600">credit_card</span> Payment Summary
+        </h2>
+        <div class="payment-summary">
+          <div class="payment-summary-row flex justify-between mb-2"><span>Items:</span><span class="payment-summary-money"></span></div>
+          <div class="payment-summary-row flex justify-between mb-2"><span>Shipping:</span><span class="payment-summary-money"></span></div>
+          <div class="payment-summary-row flex justify-between mb-2 subtotal-row"><span>Subtotal:</span><span class="payment-summary-money"></span></div>
+          <div class="payment-summary-row flex justify-between mb-2"><span>Estimated Tax:</span><span class="payment-summary-money"></span></div>
+          <div class="payment-summary-row flex justify-between mb-2 total-row"><span>Total:</span><span class="payment-summary-money"></span></div>
         </div>
-        <div class="payment-summary-row">
-          <div>Shipping &amp; handling:</div>
-          <div class="payment-summary-money"></div>
-        </div>
-        <div class="payment-summary-row subtotal-row">
-          <div>Total before tax:</div>
-          <div class="payment-summary-money"></div>
-        </div>
-        <div class="payment-summary-row">
-          <div>Estimated tax (10%):</div>
-          <div class="payment-summary-money"></div>
-        </div>
-        <div class="payment-summary-row total-row">
-          <div>Order total:</div>
-          <div class="payment-summary-money"></div>
-        </div>
-        <button class="place-order-button button-primary">Place your order</button>
-      </div>
-    </div>
+        <button class="place-order-button w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition text-lg animate__animated animate__pulse">Place Order</button>
+      </aside>
+    </main>
     <script type="module" src="scripts/checkout.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="scripts/global.js"></script>
   </body>
 </html>

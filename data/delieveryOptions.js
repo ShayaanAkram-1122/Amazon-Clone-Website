@@ -1,4 +1,5 @@
-export const delieveryOptions=[
+// Available delivery options with their respective costs and delivery times
+export const delieveryOptions = [
     {
         id: '1',
         delieveryDays: 7,
@@ -10,9 +11,8 @@ export const delieveryOptions=[
         priceCents: 499
     },
     {
-        id:'3',
+        id: '3',
         delieveryDays: 1,
         priceCents: 999
     }
-
 ];

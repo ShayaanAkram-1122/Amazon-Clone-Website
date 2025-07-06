@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns & Buy Again</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl animate__animated animate__fadeInDown">
+    <h1 class="text-2xl font-bold mb-4 text-center">Your Returns</h1>
+    <div id="returns-list" class="space-y-4"></div>
+    <div id="no-returns" class="text-center text-gray-500 mt-6 hidden">
+      <p class="text-lg mb-2">No returns yet.</p>
+      <p class="text-sm">Items you delete from your cart will appear here for easy re-purchase.</p>
+      <a href="amazon.html" class="inline-block mt-4 text-blue-600 hover:underline">Start Shopping</a>
+    </div>
+    <a href="amazon.html" class="block text-center mt-8 text-blue-600 hover:underline">&larr; Back to Shop</a>
+  </div>
+  <script type="module">
+    import { products } from './data/products.js';
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const returnsList = document.getElementById('returns-list');
+    const noReturns = document.getElementById('no-returns');
+    async function fetchReturns() {
+      if (!user.id) {
+        console.log('No user ID found:', user);
+        noReturns.classList.remove('hidden');
+        noReturns.innerHTML = `
+          <p class="text-lg mb-2">Please log in to view your returns.</p>
+          <a href="sign.html" class="inline-block mt-4 text-blue-600 hover:underline">Sign In</a>
+        `;
+        return;
+      }
+      console.log('Fetching returns for user ID:', user.id);
+      const res = await fetch(`http://localhost:3000/returns/${user.id}`);
+      if (!res.ok) {
+        console.log('Failed to fetch returns:', res.status);
+        return;
+      }
+      const returns = await res.json();
+      console.log('Returns data:', returns);
+      renderReturns(returns);
+    }
+    function renderReturns(returns) {
+      returnsList.innerHTML = '';
+      if (!returns.length) {
+        noReturns.classList.remove('hidden');
+        return;
+      }
+      noReturns.classList.add('hidden');
+      returns.forEach(item => {
+        const product = products.find(p => p.id === item.product_id);
+        if (!product) return;
+        const div = document.createElement('div');
+        div.className = 'flex items-center bg-gray-50 rounded-lg shadow p-4 animate__animated animate__fadeInUp';
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="w-20 h-20 rounded mr-4 object-contain bg-white border" />
+          <div class="flex-1">
+            <div class="font-semibold text-lg">${product.name}</div>
+            <div class="text-gray-500 text-sm mb-2">Quantity: ${item.quantity}</div>
+            <div class="flex gap-2">
+              <button class="buy-again-btn bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition" data-product-id="${product.id}" data-quantity="${item.quantity}">Buy Again</button>
+              <button class="delete-return-btn bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition" data-return-id="${item.id}">Delete</button>
+            </div>
+          </div>
+          <div class="text-xs text-gray-400 ml-4">Returned: ${new Date(item.deleted_at).toLocaleString()}</div>
+        `;
+        returnsList.appendChild(div);
+      });
+      document.querySelectorAll('.buy-again-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          btn.textContent = 'Adding...';
+          const res = await fetch('http://localhost:3000/returns/buy-again', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: user.id,
+              productId: btn.dataset.productId,
+              quantity: btn.dataset.quantity
+            })
+          });
+          if (res.ok) {
+            btn.textContent = 'Added!';
+            fetchReturns();
+          } else {
+            btn.textContent = 'Error';
+            btn.disabled = false;
+          }
+        });
+      });
+      document.querySelectorAll('.delete-return-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          btn.textContent = 'Deleting...';
+          const res = await fetch(`http://localhost:3000/returns/${btn.dataset.returnId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          if (res.ok) {
+            btn.textContent = 'Deleted!';
+            fetchReturns();
+          } else {
+            btn.textContent = 'Error';
+            btn.disabled = false;
+          }
+        });
+      });
+    }
+    fetchReturns();
+  </script>
+  <script src="scripts/global.js"></script>
+</body>
+</html> 

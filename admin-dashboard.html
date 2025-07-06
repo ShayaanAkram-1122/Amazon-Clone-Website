@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/shared/general.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen transition-colors duration-300">
+    <script>
+      // Check if admin is logged in
+      const adminData = localStorage.getItem('admin');
+      if (!adminData) {
+        window.location.href = 'admin.html';
+      }
+      
+      try {
+        const admin = JSON.parse(adminData);
+        if (!admin || !admin.id) {
+          window.location.href = 'admin.html';
+        }
+      } catch (error) {
+        console.error('Error parsing admin data:', error);
+        window.location.href = 'admin.html';
+      }
+    </script>
+    <div class="checkout-header sticky top-0 z-50 shadow bg-white flex items-center px-4 py-2 animate__animated animate__fadeInDown">
+      <div class="header-content w-full max-w-6xl mx-auto flex items-center justify-between">
+        <div class="checkout-header-left-section flex items-center">
+          <a href="amazon.html">
+            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+          </a>
+        </div>
+        <div class="checkout-header-middle-section text-xl font-bold text-gray-800">
+          Admin Dashboard
+        </div>
+        <div class="checkout-header-right-section flex items-center">
+          <button id="theme-toggle" class="mr-4 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+            <span id="theme-icon" class="material-icons text-gray-600">dark_mode</span>
+          </button>
+          <span class="text-sm text-gray-600 mr-4 js-admin-name">Admin</span>
+          <button onclick="logout()" class="text-red-600 hover:underline text-sm">Logout</button>
+        </div>
+      </div>
+    </div>
+    
+    <main class="main w-full max-w-6xl mx-auto mt-24 animate__animated animate__fadeInUp">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome, <span class="js-admin-welcome">Admin</span>!</h1>
+        <p class="text-gray-600">Manage your Amazon clone store from this dashboard.</p>
+      </div>
+      
+      <!-- Dashboard Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInUp">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-2xl font-bold text-blue-600 js-total-users">0</div>
+              <div class="text-gray-600">Total Users</div>
+            </div>
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span class="material-icons text-blue-600">people</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInUp">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-2xl font-bold text-green-600 js-total-orders">0</div>
+              <div class="text-gray-600">Total Orders</div>
+            </div>
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <span class="material-icons text-green-600">shopping_cart</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInUp">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-2xl font-bold text-purple-600 js-total-products">0</div>
+              <div class="text-gray-600">Products</div>
+            </div>
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <span class="material-icons text-purple-600">inventory</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInUp">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-2xl font-bold text-orange-600 js-total-revenue">$0</div>
+              <div class="text-gray-600">Revenue</div>
+            </div>
+            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+              <span class="material-icons text-orange-600">attach_money</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation Tabs -->
+      <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div class="flex flex-wrap gap-4">
+          <button onclick="showSection('dashboard')" class="js-tab-btn tab-btn active bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+            Dashboard
+          </button>
+          <button onclick="showSection('users')" class="js-tab-btn tab-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition">
+            Users
+          </button>
+          <button onclick="showSection('orders')" class="js-tab-btn tab-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition">
+            Orders
+          </button>
+          <button onclick="showSection('admin-users')" class="js-tab-btn tab-btn bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition">
+            Admin Users
+          </button>
+          <button onclick="showSection('danger-zone')" class="js-tab-btn tab-btn bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition">
+            Danger Zone
+          </button>
+        </div>
+      </div>
+      
+      <!-- Dashboard Section -->
+      <div id="dashboard-section" class="js-section section">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInLeft">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+              <span class="material-icons text-blue-600">recent_actors</span> Recent Users
+            </h2>
+            <div class="js-recent-users space-y-3">
+              <div class="text-center py-8">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <div class="text-gray-500 mt-2">Loading users...</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInRight">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+              <span class="material-icons text-green-600">receipt</span> Recent Orders
+            </h2>
+            <div class="js-recent-orders space-y-3">
+              <div class="text-center py-8">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+                <div class="text-gray-500 mt-2">Loading orders...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Users Section -->
+      <div id="users-section" class="js-section section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+            <span class="material-icons text-blue-600">people</span> All Users
+          </h2>
+          <div class="js-users-list">
+            <div class="text-center py-8">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <div class="text-gray-500 mt-2">Loading users...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Orders Section -->
+      <div id="orders-section" class="js-section section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+            <span class="material-icons text-green-600">shopping_cart</span> All Orders
+          </h2>
+          <div class="js-orders-list">
+            <div class="text-center py-8">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+              <div class="text-gray-500 mt-2">Loading orders...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Admin Users Section -->
+      <div id="admin-users-section" class="js-section section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+            <span class="material-icons text-purple-600">admin_panel_settings</span> Admin Users
+          </h2>
+          <div class="js-admin-users-list">
+            <div class="text-center py-8">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+              <div class="text-gray-500 mt-2">Loading admin users...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Danger Zone Section -->
+      <div id="danger-zone-section" class="js-section section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-xl font-bold mb-4 text-red-600 flex items-center gap-2">
+            <span class="material-icons">warning</span> Danger Zone
+          </h2>
+          <div class="space-y-4">
+            <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+              <h3 class="font-semibold text-red-800 mb-2">Clean Database</h3>
+              <p class="text-red-700 text-sm mb-3">This will delete ALL users, orders, carts, and returns. This action cannot be undone!</p>
+              <button onclick="cleanDatabase()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                Clean Database
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <script>
+      function logout() {
+        localStorage.removeItem('admin');
+        window.location.href = 'sign.html';
+      }
+      
+      function showSection(sectionName) {
+        // Hide all sections
+        document.querySelectorAll('.js-section').forEach(section => {
+          section.classList.add('hidden');
+        });
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.js-tab-btn').forEach(btn => {
+          btn.classList.remove('active', 'bg-blue-600', 'text-white');
+          btn.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        
+        // Show selected section
+        document.getElementById(sectionName + '-section').classList.remove('hidden');
+        
+        // Add active class to clicked tab
+        event.target.classList.add('active', 'bg-blue-600', 'text-white');
+        event.target.classList.remove('bg-gray-200', 'text-gray-700');
+        
+        // Load section data
+        switch(sectionName) {
+          case 'dashboard':
+            loadDashboardData();
+            break;
+          case 'users':
+            loadUsers();
+            break;
+          case 'orders':
+            loadOrders();
+            break;
+          case 'admin-users':
+            loadAdminUsers();
+            break;
+        }
+      }
+      
+      async function loadDashboardData() {
+        try {
+          const adminData = localStorage.getItem('admin');
+          const admin = adminData ? JSON.parse(adminData) : {};
+          document.querySelector('.js-admin-name').textContent = admin.name || 'Admin';
+          document.querySelector('.js-admin-welcome').textContent = admin.name || 'Admin';
+        
+          // Load dashboard statistics
+          const statsRes = await fetch('http://localhost:3000/admin/dashboard');
+          if (statsRes.ok) {
+            const stats = await statsRes.json();
+            document.querySelector('.js-total-users').textContent = stats.totalUsers || 0;
+            document.querySelector('.js-total-orders').textContent = stats.totalOrders || 0;
+            document.querySelector('.js-total-products').textContent = stats.totalProducts || 0;
+            document.querySelector('.js-total-revenue').textContent = `$${stats.totalRevenue || 0}`;
+          }
+          
+          // Load recent users
+          const usersRes = await fetch('http://localhost:3000/admin/users');
+          if (usersRes.ok) {
+            const users = await usersRes.json();
+            const recentUsersContainer = document.querySelector('.js-recent-users');
+            recentUsersContainer.innerHTML = users.slice(0, 5).map(user => `
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <div class="font-medium">${user.name}</div>
+                  <div class="text-sm text-gray-600">${user.email}</div>
+                </div>
+                <div class="text-xs text-gray-500">${new Date(user.created_at).toLocaleDateString()}</div>
+              </div>
+            `).join('') || '<div class="text-gray-500 text-center">No users found</div>';
+          }
+          
+          // Load recent orders
+          const ordersRes = await fetch('http://localhost:3000/admin/orders');
+          if (ordersRes.ok) {
+            const orders = await ordersRes.json();
+            const recentOrdersContainer = document.querySelector('.js-recent-orders');
+            recentOrdersContainer.innerHTML = orders.slice(0, 5).map(order => `
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <div class="font-medium">Order #${order.id}</div>
+                  <div class="text-sm text-gray-600">${order.user_name}</div>
+                </div>
+                <div class="text-xs text-gray-500">${new Date(order.created_at).toLocaleDateString()}</div>
+              </div>
+            `).join('') || '<div class="text-gray-500 text-center">No orders found</div>';
+          }
+          
+        } catch (error) {
+          console.error('Error loading dashboard data:', error);
+        }
+      }
+      
+      async function loadUsers() {
+        try {
+          const res = await fetch('http://localhost:3000/admin/users');
+          if (res.ok) {
+            const users = await res.json();
+            const container = document.querySelector('.js-users-list');
+            container.innerHTML = users.map(user => `
+              <div class="flex items-center justify-between p-4 border-b">
+                <div class="flex-1">
+                  <div class="font-medium">${user.name}</div>
+                  <div class="text-sm text-gray-600">${user.email}</div>
+                  <div class="text-xs text-gray-500">Phone: ${user.phone || 'N/A'}</div>
+                  <div class="text-xs text-gray-500">Joined: ${new Date(user.created_at).toLocaleDateString()}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-medium">${user.total_orders} orders</div>
+                  <div class="text-sm text-green-600">$${user.total_spent}</div>
+                  <button onclick="deleteUser(${user.id})" class="mt-2 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            `).join('') || '<div class="text-gray-500 text-center">No users found</div>';
+          }
+        } catch (error) {
+          console.error('Error loading users:', error);
+        }
+      }
+      
+      async function loadOrders() {
+        try {
+          const res = await fetch('http://localhost:3000/admin/orders');
+          if (res.ok) {
+            const orders = await res.json();
+            const container = document.querySelector('.js-orders-list');
+            container.innerHTML = orders.map(order => `
+              <div class="flex items-center justify-between p-4 border-b">
+                <div class="flex-1">
+                  <div class="font-medium">Order #${order.id}</div>
+                  <div class="text-sm text-gray-600">${order.user_name} (${order.user_email})</div>
+                  <div class="text-xs text-gray-500">${new Date(order.created_at).toLocaleDateString()}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-medium">$${order.total_amount}</div>
+                  <div class="text-sm text-${order.status === 'paid' ? 'green' : 'yellow'}-600">${order.status}</div>
+                  <button onclick="deleteOrder(${order.id})" class="mt-2 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            `).join('') || '<div class="text-gray-500 text-center">No orders found</div>';
+          }
+        } catch (error) {
+          console.error('Error loading orders:', error);
+        }
+      }
+      
+      async function loadAdminUsers() {
+        try {
+          const res = await fetch('http://localhost:3000/admin/admin-users');
+          if (res.ok) {
+            const admins = await res.json();
+            const container = document.querySelector('.js-admin-users-list');
+            container.innerHTML = admins.map(admin => `
+              <div class="flex items-center justify-between p-4 border-b">
+                <div class="flex-1">
+                  <div class="font-medium">${admin.name}</div>
+                  <div class="text-sm text-gray-600">${admin.email}</div>
+                  <div class="text-xs text-gray-500">Phone: ${admin.phone || 'N/A'}</div>
+                  <div class="text-xs text-gray-500">Created: ${new Date(admin.created_at).toLocaleDateString()}</div>
+                </div>
+              </div>
+            `).join('') || '<div class="text-gray-500 text-center">No admin users found</div>';
+          }
+        } catch (error) {
+          console.error('Error loading admin users:', error);
+        }
+      }
+      
+      async function deleteUser(userId) {
+        if (!confirm('Are you sure you want to delete this user? This will also delete all their orders, cart items, and returns.')) {
+          return;
+        }
+        
+        try {
+          const res = await fetch(`http://localhost:3000/admin/users/${userId}`, {
+            method: 'DELETE'
+          });
+          
+          if (res.ok) {
+            alert('User deleted successfully');
+            loadUsers();
+            loadDashboardData();
+          } else {
+            alert('Failed to delete user');
+          }
+        } catch (error) {
+          console.error('Error deleting user:', error);
+          alert('Error deleting user');
+        }
+      }
+      
+      async function deleteOrder(orderId) {
+        if (!confirm('Are you sure you want to delete this order?')) {
+          return;
+        }
+        
+        try {
+          const res = await fetch(`http://localhost:3000/admin/orders/${orderId}`, {
+            method: 'DELETE'
+          });
+          
+          if (res.ok) {
+            alert('Order deleted successfully');
+            loadOrders();
+            loadDashboardData();
+          } else {
+            alert('Failed to delete order');
+          }
+        } catch (error) {
+          console.error('Error deleting order:', error);
+          alert('Error deleting order');
+        }
+      }
+      
+      async function cleanDatabase() {
+        if (!confirm('WARNING: This will delete ALL users, orders, carts, and returns. This action cannot be undone! Are you absolutely sure?')) {
+          return;
+        }
+        
+        if (!confirm('Final warning: This will permanently delete all data. Continue?')) {
+          return;
+        }
+        
+        try {
+          const res = await fetch('http://localhost:3000/admin/clean-database', {
+            method: 'POST'
+          });
+          
+          if (res.ok) {
+            alert('Database cleaned successfully');
+            loadDashboardData();
+          } else {
+            alert('Failed to clean database');
+          }
+        } catch (error) {
+          console.error('Error cleaning database:', error);
+          alert('Error cleaning database');
+        }
+      }
+      
+      // Logout function
+      function logout() {
+        localStorage.removeItem('admin');
+        window.location.href = 'admin.html';
+      }
+      
+      // Load dashboard data when page loads
+      document.addEventListener('DOMContentLoaded', loadDashboardData);
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="scripts/global.js"></script>
+  </body>
+</html> 
